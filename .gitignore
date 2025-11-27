@@ -1,0 +1,79 @@
+# =========================
+# ===== FRONTEND REACT ====
+# =========================
+
+# Dependencies
+frontend/node_modules/
+**/node_modules/
+
+# Build outputs
+frontend/build/
+frontend/dist/
+**/dist/
+**/build/
+
+# Environment variables
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor folders
+.vscode/
+.idea/
+
+
+# =========================
+# ===== BACKEND JAVA ======
+# =========================
+
+# Maven
+backend/target/
+
+# Gradle
+backend/.gradle/
+**/build/
+
+# Java logs
+*.log
+
+# JVM
+*.class
+hs_err_pid*
+
+# Spring Boot specific
+backend/.springBeans
+
+# OS / IDE
+*.iml
+*.iws
+*.ipr
+*.DS_Store
+
+# Environment files
+backend/.env
+backend/application.properties
+backend/application.yml
+backend/application-local.properties
+backend/application-local.yml
+
+
+# =========================
+# ===== GENERAL ===========
+# =========================
+
+# System files
+Thumbs.db
+.DS_Store
+
+# Ignore generated files
+*.war
+*.jar
+
+# Ignore root-level env file (if any)
+.env
+

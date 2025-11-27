@@ -1,0 +1,65 @@
+/* Contrast Settings for Admin */
+
+/* Low Contrast */
+[data-contrast="low"] {
+  --text-primary: #6b7280;
+  --text-secondary: #9ca3af;
+  --bg-primary: #f9fafb;
+  --bg-secondary: #f3f4f6;
+  --border-color: #e5e7eb;
+}
+
+[data-contrast="low"] .text-gray-800 {
+  color: #6b7280 !important;
+}
+
+[data-contrast="low"] .text-gray-600 {
+  color: #9ca3af !important;
+}
+
+[data-contrast="low"] .bg-white {
+  background-color: #f9fafb !important;
+}
+
+/* Normal Contrast (Default) */
+[data-contrast="normal"] {
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --border-color: #d1d5db;
+}
+
+/* High Contrast */
+[data-contrast="high"] {
+  --text-primary: #000000;
+  --text-secondary: #374151;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --border-color: #6b7280;
+}
+
+[data-contrast="high"] .text-gray-800 {
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+[data-contrast="high"] .text-gray-600 {
+  color: #374151 !important;
+  font-weight: 500 !important;
+}
+
+[data-contrast="high"] .border-gray-200,
+[data-contrast="high"] .border-gray-100 {
+  border-color: #6b7280 !important;
+}
+
+[data-contrast="high"] .shadow-sm {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Focus states for high contrast */
+[data-contrast="high"] .focus\:ring-blue-500:focus {
+  --tw-ring-color: #1d4ed8 !important;
+  --tw-ring-width: 3px !important;
+}

@@ -1,0 +1,68 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Modern Hexagon Background -->
+  <path 
+    d="M50 5 L85 27.5 L85 72.5 L50 95 L15 72.5 L15 27.5 Z" 
+    fill="url(#modernGradient)" 
+    stroke="url(#strokeGradient)" 
+    strokeWidth="2"
+  />
+  
+  <!-- Inner Glow Effect -->
+  <path 
+    d="M50 12 L78 30 L78 70 L50 88 L22 70 L22 30 Z" 
+    fill="url(#innerGlow)" 
+    opacity="0.3"
+  />
+  
+  <!-- Legal Scale Icon - Modern Style -->
+  <g transform="translate(50, 50)">
+    <!-- Center Pole -->
+    <rect x="-2" y="-25" width="4" height="35" fill="white" rx="2" />
+    
+    <!-- Balance Beam -->
+    <rect x="-22" y="-25" width="44" height="3" fill="white" rx="1.5" />
+    
+    <!-- Left Scale -->
+    <g transform="translate(-18, -25)">
+      <line x1="0" y1="0" x2="-4" y2="8" stroke="white" strokeWidth="2" strokeLinecap="round" />
+      <line x1="0" y1="0" x2="4" y2="8" stroke="white" strokeWidth="2" strokeLinecap="round" />
+      <ellipse cx="0" cy="10" rx="6" ry="2" fill="white" opacity="0.9" />
+    </g>
+    
+    <!-- Right Scale -->
+    <g transform="translate(18, -25)">
+      <line x1="0" y1="0" x2="-4" y2="8" stroke="white" strokeWidth="2" strokeLinecap="round" />
+      <line x1="0" y1="0" x2="4" y2="8" stroke="white" strokeWidth="2" strokeLinecap="round" />
+      <ellipse cx="0" cy="10" rx="6" ry="2" fill="white" opacity="0.9" />
+    </g>
+    
+    <!-- Top Circle -->
+    <circle cx="0" cy="-28" r="4" fill="white" />
+    
+    <!-- Base -->
+    <rect x="-8" y="10" width="16" height="3" fill="white" rx="1.5" />
+  </g>
+  
+  <!-- Accent Dots -->
+  <circle cx="50" cy="15" r="2" fill="white" opacity="0.6" />
+  <circle cx="50" cy="85" r="2" fill="white" opacity="0.6" />
+  
+  <!-- Gradient Definitions -->
+  <defs>
+    <linearGradient id="modernGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#2563EB" />
+      <stop offset="50%" stopColor="#3B82F6" />
+      <stop offset="100%" stopColor="#60A5FA" />
+    </linearGradient>
+    
+    <linearGradient id="strokeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#1E40AF" />
+      <stop offset="100%" stopColor="#3B82F6" />
+    </linearGradient>
+    
+    <radialGradient id="innerGlow">
+      <stop offset="0%" stopColor="white" />
+      <stop offset="100%" stopColor="transparent" />
+    </radialGradient>
+  </defs>
+</svg>
