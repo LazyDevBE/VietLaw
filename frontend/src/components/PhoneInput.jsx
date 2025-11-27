@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { phoneValidator } from '../utils/phoneValidator'
 
 function PhoneInput({ 
   value, 

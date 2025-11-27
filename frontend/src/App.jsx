@@ -16,7 +16,7 @@ import PrivateRoute from './components/PrivateRoute'
 import AdminRoute from './components/AdminRoute'
 import MaintenanceRoute from './components/MaintenanceRoute'
 import ScrollToTop from './components/ScrollToTop'
-import { isPageUnderMaintenance, getMaintenanceMessage } from './utils/maintenanceConfig'
+import { isPageUnderMaintenance, getMaintenanceMessage } from './utils/maintenanceConfig.js'
 
 function App() {
   const location = useLocation()
