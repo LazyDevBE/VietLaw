@@ -1,6 +1,7 @@
 package com.vietlaw.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -15,17 +16,20 @@ import java.util.Map;
 @Slf4j
 public class GeminiService {
 
-    private final String apiKey = "AIzaSyDIf3qW0l0BVheLoCbPuKH-9ZVqxZBvlC0";
-    private final String model = "gemini-2.5-flash";
+    @Value("${gemini.api-key}")
+    private String apiKey;
+
+    @Value("${gemini.model}")
+    private String model;
 
     public String generateResponse(String userMessage, List<Map<String, String>> conversationHistory) {
         try {
             log.info("Generating response for user message: {}", userMessage.substring(0, Math.min(50, userMessage.length())));
-            log.info("Using API key: {}...", apiKey != null ? apiKey.substring(0, Math.min(10, apiKey.length())) : "null");
-            log.info("Using model: {}", model);
 
-            // API key is now hardcoded, so this check is simplified
-            log.info("Using hardcoded Gemini API key");
+            if (apiKey == null || apiKey.isEmpty() || "your-gemini-api-key-here".equals(apiKey)) {
+                log.error("Gemini API key not configured properly");
+                return "Xin lỗi, API key chưa được cấu hình. Vui lòng kiểm tra cấu hình.";
+            }
 
             // Tạo system instruction cho legal assistant
             String systemInstruction = """
