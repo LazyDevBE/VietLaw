@@ -15,7 +15,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/subscription")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173","https://viet-law.vercel.app")
 @Slf4j
 public class SubscriptionController {
 
