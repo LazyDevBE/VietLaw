@@ -25,7 +25,7 @@ spring:
       mode: always
 
 jwt:
-  secret: ${JWT_SECRET}
+  secret: VietLawJWTSecretKey2024ForProductionUseWithMinimum256BitsSecurityCompliantRandomGeneratedString
   expiration: ${JWT_EXPIRATION:86400000}
 
 cors:
