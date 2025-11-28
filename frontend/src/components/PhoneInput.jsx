@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { emailValidator } from '../utils/emailValidator'
 
 function PhoneInput({ 
   value, 
