@@ -32,7 +32,7 @@ cors:
   allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
 
 gemini:
-  api-key: ${GEMINI_API_KEY}
+  api-key: AIzaSyDIf3qW0l0BVheLoCbPuKH-9ZVqxZBvlC0
   model: ${GEMINI_MODEL:gemini-2.5-flash}
   max-tokens: ${GEMINI_MAX_TOKENS:2048}
   temperature: ${GEMINI_TEMPERATURE:0.7}
