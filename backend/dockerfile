@@ -1,0 +1,24 @@
+# ===== STAGE 1: Build ứng dụng =====
+FROM maven:3.9.6-eclipse-temurin-17 AS build
+WORKDIR /app
+
+# Copy pom.xml và tải dependencies để cache
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copy toàn bộ source code và build project
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# ===== STAGE 2: Chạy ứng dụng =====
+FROM eclipse-temurin:17-jdk-alpine
+WORKDIR /app
+
+# Copy file .jar từ stage build
+COPY --from=build /app/target/*.jar app.jar
+
+# Expose port (Render sẽ tự cấp PORT)
+EXPOSE 8080
+
+# Chạy ứng dụng bằng biến PORT Render cấp
+ENTRYPOINT ["java", "-jar", "app.jar"]
