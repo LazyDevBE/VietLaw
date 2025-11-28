@@ -20,5 +20,5 @@ COPY --from=build /app/target/*.jar app.jar
 # Expose port (Render sẽ tự cấp PORT)
 EXPOSE 8080
 
-# Chạy ứng dụng bằng biến PORT Render cấp
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Chạy ứng dụng với các tùy chọn JVM tối ưu cho Render
+ENTRYPOINT ["java", "-Xmx512m", "-Xms256m", "-Dserver.port=${PORT:-8080}", "-jar", "app.jar"]

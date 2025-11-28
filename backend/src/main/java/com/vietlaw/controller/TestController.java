@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/test")
-@CrossOrigin(origins = "http://localhost:5173","https://viet-law.vercel.app")
+@CrossOrigin(origins = {"http://localhost:5173", "https://viet-law.vercel.app"})
 public class TestController {
 
     @GetMapping("/health")

@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
 public class UserPrincipal implements UserDetails {
     private Long id;
     private String username;
@@ -18,6 +17,15 @@ public class UserPrincipal implements UserDetails {
     private String password;
     private Boolean isActive;
     private Collection<? extends GrantedAuthority> authorities;
+
+    public UserPrincipal(Long id, String username, String email, String password, Boolean isActive, Collection<? extends GrantedAuthority> authorities) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.isActive = isActive;
+        this.authorities = authorities;
+    }
 
     public static UserPrincipal create(User user) {
         Collection<GrantedAuthority> authorities = user.getRoles().stream()

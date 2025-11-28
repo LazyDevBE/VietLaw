@@ -52,4 +52,61 @@ public class ChatMessage {
         this.content = content;
         this.messageType = messageType;
     }
+
+    // Explicit getters and setters for Docker build compatibility
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public MessageType getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(MessageType messageType) {
+        this.messageType = messageType;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Integer getTokensUsed() {
+        return tokensUsed;
+    }
+
+    public void setTokensUsed(Integer tokensUsed) {
+        this.tokensUsed = tokensUsed;
+    }
+
+    public Long getResponseTimeMs() {
+        return responseTimeMs;
+    }
+
+    public void setResponseTimeMs(Long responseTimeMs) {
+        this.responseTimeMs = responseTimeMs;
+    }
+
+    public ChatSession getChatSession() {
+        return chatSession;
+    }
+
+    public void setChatSession(ChatSession chatSession) {
+        this.chatSession = chatSession;
+    }
 }

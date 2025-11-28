@@ -11,4 +11,21 @@ public class ChatRequest {
     private String content;
 
     private Long sessionId; // Null nếu tạo session mới
+
+    // Explicit getters and setters for Docker build compatibility
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Long getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(Long sessionId) {
+        this.sessionId = sessionId;
+    }
 }

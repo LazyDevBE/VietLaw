@@ -1,13 +1,13 @@
 server:
-  port: ${SERVER_PORT:8080}
+  port: ${PORT:8080}
   servlet:
     context-path: /api
 
 spring:
   datasource:
-    url: jdbc:mysql://root:uPMfhXPQpvRYFxqtJWvyvePUqgEWwulb@nozomi.proxy.rlwy.net:20535/railway
-    username: root
-    password: uPMfhXPQpvRYFxqtJWvyvePUqgEWwulb
+    url: ${DATABASE_URL:jdbc:mysql://root:uPMfhXPQpvRYFxqtJWvyvePUqgEWwulb@nozomi.proxy.rlwy.net:20535/railway}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:uPMfhXPQpvRYFxqtJWvyvePUqgEWwulb}
     driver-class-name: com.mysql.cj.jdbc.Driver
   
   jpa:
@@ -29,11 +29,11 @@ jwt:
   expiration: ${JWT_EXPIRATION:86400000}
 
 cors:
-  allowed-origins: ${CORS_ALLOWED_ORIGINS:https://viet-law.vercel.app/}
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:https://viet-law.vercel.app,http://localhost:5173}
 
 gemini:
-  api-key: AIzaSyDIf3qW0l0BVheLoCbPuKH-9ZVqxZBvlC0
-  model: ${GEMINI_MODEL:gemini-2.5-flash}
+  api-key: ${GEMINI_API_KEY:AIzaSyDIf3qW0l0BVheLoCbPuKH-9ZVqxZBvlC0}
+  model: ${GEMINI_MODEL:gemini-1.5-flash}
   max-tokens: ${GEMINI_MAX_TOKENS:2048}
   temperature: ${GEMINI_TEMPERATURE:0.7}
   
