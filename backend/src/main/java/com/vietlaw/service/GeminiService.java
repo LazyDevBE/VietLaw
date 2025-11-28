@@ -1,5 +1,7 @@
 package com.vietlaw.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,22 +49,27 @@ public class GeminiService {
                 hãy lịch sự từ chối và hướng dẫn người dùng đặt câu hỏi pháp lý.
                 """;
 
-            // Tạo request body với system instruction
-            String requestBody = String.format("""
-                {
-                    "system_instruction": {
-                        "parts": [{"text": "%s"}]
-                    },
-                    "contents": [{
-                        "role": "user",
-                        "parts": [{"text": "%s"}]
-                    }],
-                    "generationConfig": {
-                        "temperature": 0.7,
-                        "maxOutputTokens": 2048
-                    }
-                }
-                """, systemInstruction.replace("\"", "\\\""), userMessage.replace("\"", "\\\""));
+            // Build request body using conversation history to keep context
+            List<Map<String, Object>> contents = new ArrayList<>();
+            for (Map<String, String> msg : conversationHistory) {
+                Map<String, Object> contentItem = new HashMap<>();
+                String role = "user".equalsIgnoreCase(msg.get("role")) ? "user" : "model";
+                contentItem.put("role", role);
+                List<Map<String, String>> parts = List.of(Map.of("text", msg.get("content")));
+                contentItem.put("parts", parts);
+                contents.add(contentItem);
+            }
+
+            Map<String, Object> body = new HashMap<>();
+            body.put("system_instruction", Map.of("parts", List.of(Map.of("text", systemInstruction))));
+            body.put("contents", contents);
+            body.put("generationConfig", Map.of(
+                    "temperature", 0.7,
+                    "maxOutputTokens", 2048
+            ));
+
+            ObjectMapper mapper = new ObjectMapper();
+            String requestBody = mapper.writeValueAsString(body);
 
             // Gọi Gemini API với HttpClient
             String url = String.format("https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent?key=%s", 
@@ -82,39 +91,37 @@ public class GeminiService {
             log.info("Gemini API response status: {}", response.statusCode());
 
             if (response.statusCode() == 200) {
-                // Parse response đơn giản
                 String responseBody = response.body();
-                
-                // Parse JSON response
-                if (responseBody.contains("\"candidates\"") && responseBody.contains("\"content\"")) {
-                    // Tìm text trong parts array
-                    int partsStart = responseBody.indexOf("\"parts\":");
-                    if (partsStart != -1) {
-                        int textStart = responseBody.indexOf("\"text\":", partsStart);
-                        if (textStart != -1) {
-                            textStart = responseBody.indexOf("\"", textStart + 7) + 1;
-                            int textEnd = responseBody.indexOf("\"", textStart);
-                            if (textEnd != -1) {
-                                String aiResponse = responseBody.substring(textStart, textEnd);
-                                // Unescape JSON
-                                aiResponse = aiResponse.replace("\\n", "\n").replace("\\\"", "\"");
-                                
-                                log.info("Successfully generated AI response ({} characters)", aiResponse.length());
-                                return aiResponse;
+
+                // Parse JSON response properly to avoid truncation
+                JsonNode root = mapper.readTree(responseBody);
+                JsonNode candidates = root.path("candidates");
+                if (candidates.isArray() && candidates.size() > 0) {
+                    JsonNode partsNode = candidates.get(0).path("content").path("parts");
+                    if (partsNode.isArray() && partsNode.size() > 0) {
+                        StringBuilder sb = new StringBuilder();
+                        for (JsonNode part : partsNode) {
+                            if (part.has("text")) {
+                                sb.append(part.get("text").asText());
                             }
                         }
+                        String aiResponse = sb.toString().trim();
+                        if (!aiResponse.isEmpty()) {
+                            log.info("Successfully generated AI response ({} characters)", aiResponse.length());
+                            return aiResponse;
+                        }
                     }
-                    
+
                     // Fallback: check if response was truncated
                     if (responseBody.contains("\"finishReason\": \"MAX_TOKENS\"")) {
                         log.warn("Response was truncated due to max tokens limit");
                         return "Xin lỗi, câu trả lời quá dài. Vui lòng đặt câu hỏi ngắn gọn hơn hoặc chia nhỏ câu hỏi.";
                     }
                 }
-                
+
                 log.warn("Could not parse AI response from: {}", responseBody);
                 return "Xin lỗi, không thể phân tích phản hồi từ AI. Vui lòng thử lại.";
-                
+
             } else {
                 log.error("Gemini API error - Status: {}, Body: {}", response.statusCode(), response.body());
                 
